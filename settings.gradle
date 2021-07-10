@@ -1,0 +1,2 @@
+rootProject.name = "Fruits Carnival"
+include ':app'

@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Fruits Carnival</string>
+
+
+    <string-array name="lot">
+        <item>ПОПРОБУЙ ЕЩЁ</item>
+        <item>ДЖЕКПОТ</item>
+        <item>СУПЕР ПРИЗ</item>
+        <item>+200 POINTS</item>
+        <item>ПРОИГРЫШ</item>
+        <item>+100 POINTS</item>
+    </string-array>
+
+</resources>
