@@ -4,8 +4,8 @@
 
     <string-array name="lot">
         <item>ПОПРОБУЙ ЕЩЁ</item>
-        <item>ДЖЕКПОТ</item>
         <item>СУПЕР ПРИЗ</item>
+        <item>ДЖЕКПОТ</item>
         <item>+200 POINTS</item>
         <item>ПРОИГРЫШ</item>
         <item>+100 POINTS</item>

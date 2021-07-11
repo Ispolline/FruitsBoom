@@ -38,7 +38,7 @@
         app:wheel_text_size="18dp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/spin"
         android:layout_width="130dp"
         android:layout_height="150dp"
         android:layout_marginStart="140dp"
@@ -59,10 +59,10 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintBottom_toBottomOf="@+id/spin"
+        app:layout_constraintEnd_toEndOf="@+id/spin"
+        app:layout_constraintStart_toStartOf="@+id/spin"
+        app:layout_constraintTop_toTopOf="@+id/spin" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -72,16 +72,16 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/text" />
+        app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/balance"
         android:layout_width="137dp"
         android:layout_height="27dp"
         android:layout_marginStart="7dp"
         android:layout_marginTop="9dp"
         android:background="@drawable/back"
-        android:text="Coins: 0"
+        android:text="Balance: 0"
         android:textColor="#FB2818"
         android:textSize="20dp"
         android:textStyle="bold"
