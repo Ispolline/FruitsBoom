@@ -4,40 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/unnamed"
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/textView3"
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="27dp"
-        android:layout_marginBottom="27dp"
-        android:text="POINT: 10"
-        android:textColor="@color/teal_200"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/wheel"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/club2" />
+
 
     <com.adefruandta.spinningwheel.SpinningWheelView
         android:id="@+id/wheel"
         android:layout_width="399dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="129dp"
+        android:layout_marginBottom="16dp"
         android:layout_weight="1"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.498"
         app:wheel_arrow_color="#E30000"
         app:wheel_colors="@array/rainbow_dash"
         app:wheel_items="@array/lot"
         app:wheel_stroke_color="#F65353"
-        app:wheel_text_size="18dp"
-        app:wheel_stroke_width="8dp" />
+        app:wheel_stroke_width="8dp"
+        app:wheel_text_size="18dp" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -45,6 +43,7 @@
         android:layout_height="150dp"
         android:layout_marginStart="140dp"
         android:layout_marginEnd="141dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/wheel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -59,24 +58,35 @@
         android:text="ЖМИ"
         android:textColor="@color/white"
         android:textStyle="bold"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <ImageView
+        android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
-        android:layout_marginBottom="8dp"
-        android:text="BALANCE: 1000"
-        android:textColor="@color/teal_200"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/text" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="137dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/back"
+        android:text="Coins: 0"
+        android:textColor="#FB2818"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
