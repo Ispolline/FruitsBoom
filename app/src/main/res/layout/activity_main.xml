@@ -76,10 +76,10 @@
 
     <TextView
         android:id="@+id/balance"
-        android:layout_width="137dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="9dp"
+        android:layout_width="148dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/back"
         android:text="Balance: 0"
         android:textColor="#FB2818"

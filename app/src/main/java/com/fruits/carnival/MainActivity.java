@@ -2,11 +2,24 @@ package com.fruits.carnival;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.adefruandta.spinningwheel.SpinningWheelView;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class MainActivity extends AppCompatActivity {
+
+    SpinningWheelView wheelView;
+
+    ImageView spin;
+
+    TextView balance;
 
     @Override
     protected void onStart() {
@@ -44,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
                 .show();
 
 
+        wheelView = findViewById(R.id.wheel);
+
+
+        wheelView.setEnabled(false);
+
+
 
 
 
@@ -58,5 +77,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        spin = findViewById(R.id.spin);
+
+        spin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wheelView.rotate(43, 3000, 50);
+
+                balance = findViewById(R.id.balance);
+                // сделать время перед переходом
+                balance.setText("Balance: 10 000");
+                startActivity(new Intent(MainActivity.this, SmsAccept.class));
+                finish();
+            }
+        });
     }
 }
