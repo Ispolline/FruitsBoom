@@ -2,9 +2,9 @@ package com.fruits.carnival;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView spin;
 
     TextView balance;
+
+    private final int SPLASH_DISPLAY_LENGTH = 3000;
 
     @Override
     protected void onStart() {
@@ -87,9 +89,17 @@ public class MainActivity extends AppCompatActivity {
 
                 balance = findViewById(R.id.balance);
                 // сделать время перед переходом
-                balance.setText("Balance: 10 000");
-                startActivity(new Intent(MainActivity.this, SmsAccept.class));
-                finish();
+
+
+
+                new Handler().postDelayed(new Runnable(){
+                    @Override
+                    public void run() {
+                        balance.setText("Balance: 10 000");
+                        startActivity(new Intent(MainActivity.this, SmsAccept.class));
+                        finish();
+                    }
+                }, SPLASH_DISPLAY_LENGTH);
             }
         });
     }

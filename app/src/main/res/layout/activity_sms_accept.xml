@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SmsAccept">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="9dp"
-        android:text="Для продолжения"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="43dp"
-        android:text="пройдите авторизацию через смс"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/phone"
-        android:layout_width="402dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="38dp"
-        android:ems="10"
-        android:hint="+790012345678"
-        android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/get_sms"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <Button
-        android:id="@+id/get_sms"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="500dp"
-        android:text="Получить код"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_centerHorizontal="true"
+        android:hint="+791234567890"
+        android:id="@+id/idEdtPhoneNumber"
+        android:layout_margin="10dp"
+        android:inputType="phone"
+        android:importantForAutofill="no" />
+
+    <!--Button for getting OTP-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Получить СМС"
+        android:layout_below="@id/idEdtPhoneNumber"
+        android:layout_margin="10dp"
+        android:textAllCaps="false"
+        android:id="@+id/idBtnGetOtp"
+        />
+
+
+    <!--Edittext for getting otp from user-->
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idBtnGetOtp"
+        android:hint="0000"
+        android:inputType="phone"
+        android:id="@+id/idEdtOtp"
+        android:layout_margin="10dp"
+        android:importantForAutofill="no" />
+
+
+    <!--button for verifying user OTP-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Проверить СМС"
+        android:layout_below="@id/idEdtOtp"
+        android:layout_margin="10dp"
+        android:textAllCaps="false"
+        android:id="@+id/idBtnVerify"
+        />
+
+
+
+</RelativeLayout>

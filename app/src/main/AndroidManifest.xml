@@ -14,16 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FruitsCarnival">
-        <activity android:name=".system.Starting">
+        <activity android:name=".system.Starting" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SmsAccept" />
-        <activity android:name=".Web" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".SmsAccept" android:screenOrientation="portrait"/>
+        <activity android:name=".Web" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
