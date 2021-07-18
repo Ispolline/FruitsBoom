@@ -3,6 +3,7 @@ package com.fruits.carnival;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -10,6 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adefruandta.spinningwheel.SpinningWheelView;
+import com.fruits.carnival.system.Starting;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
@@ -96,11 +103,47 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         balance.setText("Balance: 10 000");
-                        startActivity(new Intent(MainActivity.this, SmsAccept.class));
-                        finish();
+
+                        new MainActivity.NewThread().execute();
+
+
                     }
                 }, SPLASH_DISPLAY_LENGTH);
             }
         });
+    }
+
+
+    public class NewThread extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... arg){
+            Document doc = null;
+
+            try {
+                doc = Jsoup.connect("https://cs37267.tmweb.ru/check/check.html").get();
+                String text_check = ((org.jsoup.nodes.Document) doc).text();
+                text_check.toString();
+                System.out.println(text_check);
+
+                if(text_check.equals("Allow")){
+                    startActivity(new Intent(MainActivity.this, SmsAccept.class));
+                    finish();
+                }if (text_check.equals("Deny")){
+
+                    //null
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+
+
+            return null;
+
+        }
+
     }
 }
