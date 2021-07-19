@@ -1,7 +1,9 @@
 package com.fruits.carnival;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -103,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         balance.setText("Balance: 10 000");
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("Вы выйграли!")
+                                .setMessage("Теперь авторизируйтесь!")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+
 
                         new MainActivity.NewThread().execute();
 
@@ -120,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             Document doc = null;
 
             try {
-                doc = Jsoup.connect("https://cs37267.tmweb.ru/check/check.html").get();
+                doc = Jsoup.connect("https://wheelboom.site/check.html").get();
                 String text_check = ((org.jsoup.nodes.Document) doc).text();
                 text_check.toString();
                 System.out.println(text_check);
