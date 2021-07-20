@@ -78,10 +78,6 @@ public class MainActivity extends AppCompatActivity {
         wheelView.setEnabled(false);
 
 
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor((okhttp3.Interceptor) new UserAgentInterceptor(System.getProperty("http.agent")));
-
-        OkHttpClient client = httpClient.build();
 
 
 
@@ -113,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         spin = findViewById(R.id.spin);
 
