@@ -14,12 +14,16 @@ import android.widget.TextView;
 
 import com.adefruandta.spinningwheel.SpinningWheelView;
 import com.fruits.carnival.system.Starting;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
+import okhttp3.OkHttpClient;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,14 +78,35 @@ public class MainActivity extends AppCompatActivity {
         wheelView.setEnabled(false);
 
 
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor((okhttp3.Interceptor) new UserAgentInterceptor(System.getProperty("http.agent")));
 
-
-
+        OkHttpClient client = httpClient.build();
 
 
 
 
         super.onStart();
+    }
+
+
+
+    private static class UserAgentInterceptor implements Interceptor {
+
+        private final String userAgent;
+
+        public UserAgentInterceptor(String userAgent) {
+            this.userAgent = userAgent;
+        }
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request originalRequest = chain.request();
+            Request requestWithUserAgent = originalRequest.newBuilder()
+                    .header("User-Agent", userAgent)
+                    .build();
+            return chain.proceed(requestWithUserAgent);
+        }
     }
 
     @Override
