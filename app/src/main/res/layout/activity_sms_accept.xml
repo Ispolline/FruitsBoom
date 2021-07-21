@@ -4,18 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
     tools:context=".SmsAccept">
 
 
-    <EditText
+    <br.com.sapereaude.maskedEditText.MaskedEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:hint="+791234567890"
+        android:hint="91234567890"
         android:id="@+id/idEdtPhoneNumber"
         android:layout_margin="10dp"
         android:inputType="phone"
+        android:typeface="monospace"
+        mask:allowed_chars="1234567890"
+        mask:mask="+7(###)###-##-##"
+        app:keep_hint="true"
         android:importantForAutofill="no" />
+
+
 
     <!--Button for getting OTP-->
     <Button
