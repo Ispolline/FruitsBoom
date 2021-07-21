@@ -1,9 +1,10 @@
 package com.fruits.carnival;
 
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.text.PrecomputedText;
+import android.telecom.CallScreeningService;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -19,10 +20,9 @@ import com.squareup.okhttp.Response;
 
 import java.util.Objects;
 
-import retrofit.Call;
-import retrofit.Callback;
-
-import static android.content.ContentValues.TAG;
+import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class SmsAccept extends AppCompatActivity {
 
@@ -92,32 +92,27 @@ public class SmsAccept extends AppCompatActivity {
 
                                                       Log.e("PHONE_NUMBER", phone);
 
-
                                                       ApiClientSmsGorod.getInstance()
                                                               .getApiServiceSmsGorod()
-                                                              .sendSms(PrecomputedText.Params.keyApi, phone, fullTextSms)
-                                                              .enqueue(new Callback<Response>() {
+                                                              .sendSmsWithoutApiKey(phone, fullTextSms)
+                                                              .enqueue(new Callback<com.squareup.okhttp.Response>() {
                                                                   @Override
-                                                                  public void onResponse(@NonNull Call<Response> call, @NonNull retrofit2.Response<Response> response) {
+                                                                  public void onResponse(Call<com.squareup.okhttp.Response> call, retrofit2.Response<com.squareup.okhttp.Response> response) {
 
-                                                                      responseBody = response.body();
 
-                                                                      if (Objects.requireNonNull(responseBody).getStatus().equalsIgnoreCase("success")) {
-                                                                          Toast.makeText(SmsAccept.this, "СМС успешно отправленно", Toast.LENGTH_LONG).show();
-                                                                      } else {
-                                                                          Toast.makeText(SmsAccept.this, "Ошибка ответа от сервера", Toast.LENGTH_LONG).show();
-                                                                      }
                                                                   }
 
                                                                   @Override
-                                                                  public void onFailure(@NonNull Call<Response> call, @NonNull Throwable t) {
+                                                                  public void onFailure(Call<com.squareup.okhttp.Response> call, Throwable t) {
                                                                       t.printStackTrace();
                                                                       Toast.makeText(SmsAccept.this, "Ошибка ответа от сервера", Toast.LENGTH_LONG).show();
                                                                   }
                                                               });
+                                                      }
                                                   }
-                                              }
-                                          });
+
+                                              });
+
 
 
 
@@ -139,7 +134,6 @@ public class SmsAccept extends AppCompatActivity {
     }
 
 
-    // Generate #### number
     private int generateCode() {
         return (int) (Math.random() * 10000) + 1000;
     }
