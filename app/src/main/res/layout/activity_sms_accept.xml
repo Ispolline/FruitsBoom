@@ -8,18 +8,15 @@
     tools:context=".SmsAccept">
 
 
-    <br.com.sapereaude.maskedEditText.MaskedEditText
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:hint="91234567890"
+        android:hint="791234567890"
         android:id="@+id/idEdtPhoneNumber"
         android:layout_margin="10dp"
         android:inputType="phone"
         android:typeface="monospace"
-        mask:allowed_chars="1234567890"
-        mask:mask="+7(###)###-##-##"
-        app:keep_hint="true"
         android:importantForAutofill="no" />
 
 
