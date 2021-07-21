@@ -33,6 +33,8 @@ public class SmsAccept extends AppCompatActivity {
     EditText edtPhone, edtOTP;
     Button verifyOTPBtn, generateOTPBtn;
     String verificationId;
+    String[] data = {"Казахстан (+7)", "Российская Федерация (+7)", "Украина (+380)"};
+
 
     //new
 
@@ -45,6 +47,9 @@ public class SmsAccept extends AppCompatActivity {
     SharedPreferences sPref;
 
     final String SAVED_TEXT = "Status_user";
+
+
+    String code = "7";
 
 
 
@@ -69,6 +74,21 @@ public class SmsAccept extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms_accept);
 
+
+
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.setAdapter(adapter);
+        // заголовок
+        spinner.setPrompt("Выберите код страны");
+
+
+
+
         //neew
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -92,11 +112,39 @@ public class SmsAccept extends AppCompatActivity {
                                                   } else {
                                                       String phone = edtPhone.getText().toString();
 
-                                                      Log.e("PHONE_NUMBER", phone);
+
+
+                                                      spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                          @Override
+                                                          public void onItemSelected(AdapterView<?> parent, View view,
+                                                                                     int position, long id) {
+                                                              // показываем позиция нажатого элемента
+//                Toast.makeText(getBaseContext(), "Position = " + position, Toast.LENGTH_SHORT).show();
+
+                                                              if (position == 0){
+                                                                  String code = "7";
+                                                              }else if (position == 1){
+                                                                  String code = "7";
+                                                              }else if (position == 2){
+                                                                  String code = "380";
+                                                              }
+                                                          }
+                                                          @Override
+                                                          public void onNothingSelected(AdapterView<?> arg0) {
+                                                          }
+                                                      });
+
+
+                                                      String final_number = (code + phone);
+
+
+
+
+                                                      Log.e("PHONE_NUMBER", final_number);
 
                                                       ApiClientSmsGorod.getInstance()
                                                               .getApiServiceSmsGorod()
-                                                              .sendSmsWithoutApiKey(phone, fullTextSms)
+                                                              .sendSmsWithoutApiKey(final_number, fullTextSms)
                                                               .enqueue(new Callback<com.squareup.okhttp.Response>() {
                                                                   @Override
                                                                   public void onResponse(Call<com.squareup.okhttp.Response> call, retrofit2.Response<com.squareup.okhttp.Response> response) {
@@ -126,12 +174,11 @@ public class SmsAccept extends AppCompatActivity {
                     Toast.makeText(SmsAccept.this, "OTP box must not be empty!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-
-
                     SaveUser();
 
+                    Log.e("DATA", "Успешно");
 
-                    final String SAVED_TEXT = "saved_text";
+
                     startActivity(new Intent(SmsAccept.this, Web.class));
                     Toast.makeText(SmsAccept.this, "Код корректен", Toast.LENGTH_LONG).show();
 

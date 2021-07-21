@@ -11,9 +11,16 @@
 
     <!--Button for getting OTP-->
 
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"/>
+
+
     <EditText
         android:id="@+id/idEdtPhoneNumber"
-        android:layout_width="334dp"
+        android:layout_width="393dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
@@ -22,10 +29,12 @@
         android:layout_marginBottom="10dp"
         android:hint="91234567890"
         android:importantForAutofill="no"
+        android:digits="1234567890"
         android:inputType="phone"
         android:typeface="monospace" />
 
     <Button
+        android:digits="1234567890"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Получить СМС"

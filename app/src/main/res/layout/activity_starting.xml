@@ -4,19 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/unnamed"
+    android:layout_gravity="center"
     tools:context=".Starting">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
+
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="346dp"
-        android:layout_marginEnd="183dp"
-        android:layout_marginBottom="337dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/club2" />
+
+
+    <com.adefruandta.spinningwheel.SpinningWheelView
+        android:id="@+id/wheel"
+        android:layout_width="399dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:wheel_arrow_color="#E30000"
+        app:wheel_colors="@array/rainbow_dash"
+        app:wheel_items="@array/lot"
+        app:wheel_stroke_color="#F65353"
+        app:wheel_stroke_width="8dp"
+        app:wheel_text_size="18dp" />
+
+    <ImageView
+        android:id="@+id/spin"
+        android:layout_width="130dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginEnd="141dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/wheel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wheel"
+        app:srcCompat="@drawable/btn" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ЖМИ"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/spin"
+        app:layout_constraintEnd_toEndOf="@+id/spin"
+        app:layout_constraintStart_toStartOf="@+id/spin"
+        app:layout_constraintTop_toTopOf="@+id/spin" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/balance"
+        android:layout_width="148dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/back"
+        android:text="Balance: 0"
+        android:textColor="#FB2818"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
