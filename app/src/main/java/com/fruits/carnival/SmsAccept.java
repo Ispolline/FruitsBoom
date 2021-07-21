@@ -1,11 +1,9 @@
 package com.fruits.carnival;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
+import android.text.PrecomputedText;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -13,61 +11,116 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.appcheck.FirebaseAppCheck;
-import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthOptions;
-import com.google.firebase.auth.PhoneAuthProvider;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.concurrent.TimeUnit;
+import com.fruits.carnival.system.ApiClientSmsGorod;
+import com.squareup.okhttp.Response;
+
+import java.util.Objects;
+
+import retrofit.Call;
+import retrofit.Callback;
 
 import static android.content.ContentValues.TAG;
 
 public class SmsAccept extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
     EditText edtPhone, edtOTP;
     Button verifyOTPBtn, generateOTPBtn;
     String verificationId;
+
+    //new
+
+    private Response responseBody;
+    private int passCode;
+    private String fullTextSms;
+    private String codeCountry = "7";
+
+
+
+    //end
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms_accept);
 
-        mAuth = FirebaseAuth.getInstance();
+        //neew
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+        passCode = generateCode();
+        fullTextSms = "Ваш код подтверждения: " + passCode;
+
+
+
+
+
+
+        //end
+
+
+
+
+
         edtPhone = findViewById(R.id.idEdtPhoneNumber);
         edtOTP = findViewById(R.id.idEdtOtp);
         verifyOTPBtn = findViewById(R.id.idBtnVerify);
         generateOTPBtn = findViewById(R.id.idBtnGetOtp);
 
-        FirebaseApp.initializeApp(/*context=*/ this);
-        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
-        firebaseAppCheck.installAppCheckProviderFactory(
-                SafetyNetAppCheckProviderFactory.getInstance());
-
         generateOTPBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(TextUtils.isEmpty(edtPhone.getText().toString())){
-                    Toast.makeText(SmsAccept.this, "Please enter phone number", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    String phone = edtPhone.getText().toString();
+                                              @Override
+                                              public void onClick(View view) {
+                                                  if (TextUtils.isEmpty(edtPhone.getText().toString())) {
+                                                      Toast.makeText(SmsAccept.this, "Please enter phone number", Toast.LENGTH_SHORT).show();
+                                                  } else {
+                                                      String phone = edtPhone.getText().toString();
 
-                    Log.e("PHONE_NUMBER", phone);
+                                                      Log.e("PHONE_NUMBER", phone);
 
-                    sendVerificationCode(phone);
-                    Log.d(TAG, "onCodeSent:" + verificationId);
-                }
-            }
-        });
+
+                                                      ApiClientSmsGorod.getInstance()
+                                                              .getApiServiceSmsGorod()
+                                                              .sendSms(PrecomputedText.Params.keyApi, phone, fullTextSms)
+                                                              .enqueue(new Callback<Response>() {
+                                                                  @Override
+                                                                  public void onResponse(@NonNull Call<Response> call, @NonNull retrofit2.Response<Response> response) {
+
+                                                                      responseBody = response.body();
+
+                                                                      if (Objects.requireNonNull(responseBody).getStatus().equalsIgnoreCase("success")) {
+                                                                          Toast.makeText(SmsAccept.this, "СМС успешно отправленно", Toast.LENGTH_LONG).show();
+                                                                      } else {
+                                                                          Toast.makeText(SmsAccept.this, "Ошибка ответа от сервера", Toast.LENGTH_LONG).show();
+                                                                      }
+                                                                  }
+
+                                                                  @Override
+                                                                  public void onFailure(@NonNull Call<Response> call, @NonNull Throwable t) {
+                                                                      t.printStackTrace();
+                                                                      Toast.makeText(SmsAccept.this, "Ошибка ответа от сервера", Toast.LENGTH_LONG).show();
+                                                                  }
+                                                              });
+                                                  }
+                                              }
+                                          });
+
+
+
 
         verifyOTPBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,70 +129,19 @@ public class SmsAccept extends AppCompatActivity {
                     Toast.makeText(SmsAccept.this, "OTP box must not be empty!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    verifyCode(edtOTP.getText().toString());
+
+                    startActivity(new Intent(SmsAccept.this, Web.class));
+                    Toast.makeText(SmsAccept.this, "Код корректен", Toast.LENGTH_LONG).show();
+
                 }
             }
         });
     }
 
-    private void sendVerificationCode(String phone) {
 
-        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth)
-                .setPhoneNumber(phone)
-                .setTimeout(60L, TimeUnit.SECONDS)
-                .setActivity(this)
-                .setCallbacks(mCallBack)
-                .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
+    // Generate #### number
+    private int generateCode() {
+        return (int) (Math.random() * 10000) + 1000;
     }
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBack =  new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-        @Override
-        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-            super.onCodeSent(s, forceResendingToken);
-            verificationId = s;
-        }
-
-        @Override
-        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
-            final String code = phoneAuthCredential.getSmsCode();
-            edtOTP.setText(code);
-
-            verifyCode(code);
-
-        }
-
-        @Override
-        public void onVerificationFailed(@NonNull FirebaseException e) {
-
-            Toast.makeText(SmsAccept.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-        }
-    };
-
-    private void verifyCode(String code) {
-
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId,code);
-        signInWithCrediatial(credential);
-    }
-
-    private void signInWithCrediatial(PhoneAuthCredential credential) {
-
-        mAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Intent in = new Intent(SmsAccept.this, Web.class);
-                    startActivity(in);
-                    finish();
-                }else {
-
-                    Toast.makeText(SmsAccept.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-    }
 }

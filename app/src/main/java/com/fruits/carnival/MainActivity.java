@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.adefruandta.spinningwheel.SpinningWheelView;
 import com.fruits.carnival.system.Starting;
+import com.onesignal.OneSignal;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     TextView balance;
 
     private final int SPLASH_DISPLAY_LENGTH = 3000;
+
+    private static final String ONESIGNAL_APP_ID = "07115524-47b3-4edc-bc68-47497b16f584";
+
 
     @Override
     protected void onStart() {
@@ -109,6 +113,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //push
+
+
+
+        // Enable verbose OneSignal logging to debug issues if needed.
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+
+        // OneSignal Initialization
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
 
 
         spin = findViewById(R.id.spin);
