@@ -2,14 +2,18 @@ package com.fruits.carnival;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.telecom.CallScreeningService;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +40,13 @@ public class SmsAccept extends AppCompatActivity {
     private int passCode;
     private String fullTextSms;
     private String codeCountry = "7";
+
+
+    SharedPreferences sPref;
+
+    final String SAVED_TEXT = "Status_user";
+
+
 
 
 
@@ -65,15 +76,6 @@ public class SmsAccept extends AppCompatActivity {
 
         passCode = generateCode();
         fullTextSms = "Ваш код подтверждения: " + passCode;
-
-
-
-
-
-
-        //end
-
-
 
 
 
@@ -125,10 +127,22 @@ public class SmsAccept extends AppCompatActivity {
                 }
                 else {
 
+
+                    SaveUser();
+
+
+                    final String SAVED_TEXT = "saved_text";
                     startActivity(new Intent(SmsAccept.this, Web.class));
                     Toast.makeText(SmsAccept.this, "Код корректен", Toast.LENGTH_LONG).show();
 
                 }
+            }
+
+            private void SaveUser() {
+                sPref = getPreferences(MODE_PRIVATE);
+                SharedPreferences.Editor ed = sPref.edit();
+                ed.putString(SAVED_TEXT, "User");
+                ed.apply();
             }
         });
     }

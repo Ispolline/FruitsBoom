@@ -3,7 +3,6 @@ package com.fruits.carnival;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adefruandta.spinningwheel.SpinningWheelView;
-import com.fruits.carnival.system.Starting;
 import com.onesignal.OneSignal;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.Request;
@@ -24,7 +22,6 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-import okhttp3.OkHttpClient;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class MainActivity extends AppCompatActivity {
