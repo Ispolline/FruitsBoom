@@ -144,11 +144,12 @@ public class HomePage extends AppCompatActivity {
 
 
 
+
                 balance = findViewById(R.id.balance);
                 // сделать время перед переходом
 
 
-                if (txt_choose.equals("Deny")){
+                 if (txt_choose == ("Deny")){
                     Log.e("STAT", "RED");
                 }else {
                     new Handler().postDelayed(new Runnable(){

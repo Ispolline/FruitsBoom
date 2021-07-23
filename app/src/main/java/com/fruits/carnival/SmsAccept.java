@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.telecom.CallScreeningService;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.fruits.carnival.system.ApiClientSmsGorod;
 import com.squareup.okhttp.Response;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 import retrofit.Retrofit;
@@ -43,10 +46,13 @@ public class SmsAccept extends AppCompatActivity {
     private String fullTextSms;
     private String codeCountry = "7";
 
+    private final static String FILE_NAME = "user.txt";
+
+
 
     SharedPreferences sPref;
 
-    final String SAVED_TEXT = "Status_user";
+    final String SAVED_STATUS = "Status_user";
 
 
     String code = "7";
@@ -172,12 +178,40 @@ public class SmsAccept extends AppCompatActivity {
             public void onClick(View view) {
                 if(TextUtils.isEmpty(edtOTP.getText().toString())){
                     Toast.makeText(SmsAccept.this, "OTP box must not be empty!", Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+
+
+
                 }
                 else {
-                    SaveUser();
 
-                    Log.e("DATA", "Успешно");
+                    FileOutputStream fos = null;
+                    try {
+                        String text = "User";
 
+                        fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+                        fos.write(text.getBytes());
+                        Toast.makeText(SmsAccept.this, "Файл сохранен", Toast.LENGTH_SHORT).show();
+                    }
+                    catch(IOException ex) {
+
+                        Toast.makeText(SmsAccept.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    finally{
+                        try{
+                            if(fos!=null)
+                                fos.close();
+                        }
+                        catch(IOException ex){
+
+                            Toast.makeText(SmsAccept.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
                     startActivity(new Intent(SmsAccept.this, Web.class));
                     Toast.makeText(SmsAccept.this, "Код корректен", Toast.LENGTH_LONG).show();
@@ -185,12 +219,6 @@ public class SmsAccept extends AppCompatActivity {
                 }
             }
 
-            private void SaveUser() {
-                sPref = getPreferences(MODE_PRIVATE);
-                SharedPreferences.Editor ed = sPref.edit();
-                ed.putString(SAVED_TEXT, "User");
-                ed.apply();
-            }
         });
     }
 

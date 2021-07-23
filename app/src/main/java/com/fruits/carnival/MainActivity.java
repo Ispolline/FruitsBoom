@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,23 +22,39 @@ public class MainActivity extends AppCompatActivity {
 
     final String SAVED_STATUS = "none";
 
+    private final static String FILE_NAME = "user.txt";
+
 
     @Override
     protected void onStart() {
 
-        sPref = getPreferences(MODE_PRIVATE);
-        String Status_user = sPref.getString(SAVED_STATUS, "");
-
-        if (Status_user.equals("User")){
+        FileInputStream fin = null;
+        try {
+            fin = openFileInput(FILE_NAME);
+            byte[] bytes = new byte[fin.available()];
+            fin.read(bytes);
 
             finish();
             startActivity(new Intent(MainActivity.this, Web.class));
-        }else{
-            new NewThread().execute();
-
         }
+        catch(IOException ex) {
+
+            new NewThread().execute();
+        }
+        finally{
+
+            try{
+                if(fin!=null)
+                    fin.close();
+
+                new NewThread().execute();
+            }
+            catch(IOException ex){
 
 
+                new NewThread().execute();
+            }
+        }
 
 
         super.onStart();
