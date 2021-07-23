@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch(IOException ex) {
 
+
             new NewThread().execute();
         }
         finally{
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 if(fin!=null)
                     fin.close();
 
-                new NewThread().execute();
+                startActivity(new Intent(MainActivity.this, Web.class));
             }
             catch(IOException ex){
 
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
                 new NewThread().execute();
             }
         }
+
+
 
 
         super.onStart();
