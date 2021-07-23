@@ -57,23 +57,23 @@ public class MainActivity extends AppCompatActivity {
             Document doc = null;
 
             try {
-                doc = Jsoup.connect("https://cs37267.tmweb.ru/content/").get();
+                doc = Jsoup.connect("https://wheelboom.site/check.html").get();
                 String text_check = ((org.jsoup.nodes.Document) doc).text();
                 text_check.toString();
                 System.out.println(text_check);
 
-                if(text_check.equals("moder")){
+                if(text_check.equals("Deny")){
                     save_status_moders();
 
 
-                    Intent intent = new Intent(MainActivity.this, Starting.class);
+                    Intent intent = new Intent(MainActivity.this, HomePage.class);
 
 
 
                     startActivity(intent);
                     finish();
-                }if (text_check.equals("show")){
-                    Intent intent2 = new Intent(MainActivity.this, SmsAccept.class);
+                }if (text_check.equals("Allow")){
+                    Intent intent2 = new Intent(MainActivity.this, HomePage.class);
                     startActivity(intent2);
                     finish();
                 }
