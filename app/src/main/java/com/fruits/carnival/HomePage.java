@@ -34,7 +34,7 @@ public class HomePage extends AppCompatActivity {
 
     TextView balance;
 
-    SharedPreferences sPref;
+    SharedPreferences sPref2;
 
     private final int SPLASH_DISPLAY_LENGTH = 3000;
 
@@ -42,6 +42,7 @@ public class HomePage extends AppCompatActivity {
 
 
     final String SAVED_STATUS = "none";
+    final String SAVED_TEXT = "none";
 
 
 
@@ -139,9 +140,7 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View v) {
                 wheelView.rotate(69, 3000, 50);
 
-
-                sPref = getPreferences(MODE_PRIVATE);
-                String Status_user = sPref.getString(SAVED_STATUS, "");
+                String txt_choose = getIntent().getStringExtra("Choose");
 
 
 
@@ -149,7 +148,9 @@ public class HomePage extends AppCompatActivity {
                 // сделать время перед переходом
 
 
-                if (Status_user.equals("none")){
+                if (txt_choose.equals("Deny")){
+                    Log.e("STAT", "RED");
+                }else {
                     new Handler().postDelayed(new Runnable(){
                         @Override
                         public void run() {
@@ -166,8 +167,6 @@ public class HomePage extends AppCompatActivity {
 
                         }
                     }, SPLASH_DISPLAY_LENGTH);
-                }else {
-                    Log.e("Status", "Wheel");
                 }
 
 
@@ -185,7 +184,7 @@ public class HomePage extends AppCompatActivity {
             Document doc = null;
 
             try {
-                doc = Jsoup.connect("https://cs37267.tmweb.ru/content/").get();
+                doc = Jsoup.connect("https://cs37267.tmweb.ru/content/yes.html").get();
                 String text_check = ((org.jsoup.nodes.Document) doc).text();
                 text_check.toString();
                 System.out.println(text_check);

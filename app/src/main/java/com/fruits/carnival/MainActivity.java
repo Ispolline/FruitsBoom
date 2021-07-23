@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sPref;
 
-    final String SAVED_TEXT = "none";
 
     final String SAVED_STATUS = "none";
 
@@ -27,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
         sPref = getPreferences(MODE_PRIVATE);
         String Status_user = sPref.getString(SAVED_STATUS, "");
 
-        if (Status_user.equals("none") || Status_user.isEmpty()){
-            new NewThread().execute();
-        }else{
+        if (Status_user.equals("User")){
+
             finish();
             startActivity(new Intent(MainActivity.this, Web.class));
+        }else{
+            new NewThread().execute();
+
         }
 
 
@@ -62,21 +63,20 @@ public class MainActivity extends AppCompatActivity {
                 text_check.toString();
                 System.out.println(text_check);
 
-                if(text_check.equals("Deny")){
-                    save_status_moders();
-
+                if (text_check.equals("Deny")){
 
                     Intent intent = new Intent(MainActivity.this, HomePage.class);
+
+                    intent.putExtra("Choose", "Deny");
 
 
 
                     startActivity(intent);
-                    finish();
-                }if (text_check.equals("Allow")){
+                }else {
                     Intent intent2 = new Intent(MainActivity.this, HomePage.class);
                     startActivity(intent2);
-                    finish();
                 }
+                finish();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -88,13 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
             return null;
 
-        }
-
-        private void save_status_moders() {
-            sPref = getPreferences(MODE_PRIVATE);
-            SharedPreferences.Editor ed = sPref.edit();
-            ed.putString(SAVED_TEXT, "Deny");
-            ed.apply();
         }
 
     }
