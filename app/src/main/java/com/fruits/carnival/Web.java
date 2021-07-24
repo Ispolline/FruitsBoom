@@ -19,7 +19,7 @@ public class Web extends AppCompatActivity {
 
 
         web = findViewById(R.id.web);
-        web.loadUrl("http://whiteleads.site/HRMGXBF9");
+        web.loadUrl("https://newkt.site/GvyWT2Zg");
         web.setWebViewClient(new WebViewClient());
         WebSettings webSettings = web.getSettings();
         CookieManager.getInstance().setAcceptCookie(true);

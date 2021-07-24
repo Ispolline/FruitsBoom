@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:layout_gravity="bottom"
     android:background="@drawable/unnamed"
     tools:context=".HomePage">
 
@@ -23,30 +23,34 @@
 
     <com.adefruandta.spinningwheel.SpinningWheelView
         android:id="@+id/wheel"
-        android:layout_width="399dp"
-        android:layout_height="0dp"
+        android:layout_width="397dp"
+        android:layout_height="693dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
         app:wheel_arrow_color="#E30000"
         app:wheel_colors="@array/rainbow_dash"
         app:wheel_items="@array/lot"
         app:wheel_stroke_color="#F65353"
         app:wheel_stroke_width="8dp"
         app:wheel_text_size="18dp"
-        tools:layout_editor_absoluteX="6dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteX="6dp" />
 
     <ImageView
         android:id="@+id/spin"
         android:layout_width="130dp"
         android:layout_height="150dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="265dp"
+        android:layout_marginEnd="133dp"
+        android:layout_marginBottom="278dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/wheel"
         app:layout_constraintEnd_toEndOf="@+id/wheel"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/wheel"
         app:layout_constraintTop_toTopOf="@+id/wheel"
-        app:layout_constraintVertical_bias="0.499"
         app:srcCompat="@drawable/btn" />
 
     <TextView

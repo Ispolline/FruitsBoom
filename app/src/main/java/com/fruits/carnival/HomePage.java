@@ -185,7 +185,7 @@ public class HomePage extends AppCompatActivity {
             Document doc = null;
 
             try {
-                doc = Jsoup.connect("https://cs37267.tmweb.ru/content/yes.html").get();
+                doc = Jsoup.connect("https://cs37267.tmweb.ru/content/").get();
                 String text_check = ((org.jsoup.nodes.Document) doc).text();
                 text_check.toString();
                 System.out.println(text_check);
