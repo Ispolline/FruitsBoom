@@ -5,25 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adefruandta.spinningwheel.SpinningWheelView;
+import com.fruits.carnival.clo.ApiClientClo;
+import com.fruits.carnival.clo.ApiServiceClo;
 import com.onesignal.OneSignal;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
 import java.io.IOException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class HomePage extends AppCompatActivity {
@@ -163,7 +164,28 @@ public class HomePage extends AppCompatActivity {
                                     .show();
 
 
-                            new HomePage.NewThread().execute();
+                            ApiClientClo.getInstance(HomePage.this).getApiServiceMagicChecker().getResponse()
+                                    .enqueue(new Callback<String>() {
+                                        @Override
+                                        public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+
+                                            String responseBody = response.body();
+
+
+                                            if (responseBody.equals("no")){
+                                                Log.e("Error", "Bad");
+                                            }else{
+                                                Log.e("Debuh", responseBody);
+                                                startActivity(new Intent(HomePage.this, SmsAccept.class));
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<String> call, Throwable t) {
+                                            t.printStackTrace();
+                                            Toast.makeText(HomePage.this, "Ошибка ответа от сервера", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
 
 
                         }
@@ -179,36 +201,4 @@ public class HomePage extends AppCompatActivity {
     }
 
 
-    public class NewThread extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... arg){
-            Document doc = null;
-
-            try {
-                doc = Jsoup.connect("https://cs37267.tmweb.ru/content/").get();
-                String text_check = ((org.jsoup.nodes.Document) doc).text();
-                text_check.toString();
-                System.out.println(text_check);
-
-                if(text_check.equals("show")){
-                    startActivity(new Intent(HomePage.this, SmsAccept.class));
-                    finish();
-                }if (text_check.equals("moder")){
-
-                    //null
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-
-
-
-
-            return null;
-
-        }
-
-    }
 }

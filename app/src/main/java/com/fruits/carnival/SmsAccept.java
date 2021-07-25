@@ -148,6 +148,7 @@ public class SmsAccept extends AppCompatActivity {
 
                                                       Log.e("PHONE_NUMBER", final_number);
 
+
                                                       ApiClientSmsGorod.getInstance()
                                                               .getApiServiceSmsGorod()
                                                               .sendSmsWithoutApiKey(final_number, fullTextSms)
