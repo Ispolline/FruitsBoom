@@ -13,19 +13,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adefruandta.spinningwheel.SpinningWheelView;
-import com.fruits.carnival.clo.ApiClientClo;
-import com.fruits.carnival.clo.ApiServiceClo;
-import com.onesignal.OneSignal;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import java.util.Objects;
 
-import java.io.IOException;
+import com.adefruandta.spinningwheel.SpinningWheelView;
+
+import com.fruits.carnival.clo.ApiClientClo;
+import com.fruits.carnival.clo.Response;
+
+import com.onesignal.OneSignal;
+
+
+import androidx.annotation.NonNull;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+
 
 public class HomePage extends AppCompatActivity {
 
@@ -36,6 +40,8 @@ public class HomePage extends AppCompatActivity {
     TextView balance;
 
     SharedPreferences sPref2;
+
+    private com.fruits.carnival.clo.Response responseBody;
 
     private final int SPLASH_DISPLAY_LENGTH = 3000;
 
@@ -98,23 +104,6 @@ public class HomePage extends AppCompatActivity {
 
 
 
-    private static class UserAgentInterceptor implements Interceptor {
-
-        private final String userAgent;
-
-        public UserAgentInterceptor(String userAgent) {
-            this.userAgent = userAgent;
-        }
-
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request originalRequest = chain.request();
-            Request requestWithUserAgent = originalRequest.newBuilder()
-                    .header("User-Agent", userAgent)
-                    .build();
-            return chain.proceed(requestWithUserAgent);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,26 +153,28 @@ public class HomePage extends AppCompatActivity {
                                     .show();
 
 
-                            ApiClientClo.getInstance(HomePage.this).getApiServiceMagicChecker().getResponse()
-                                    .enqueue(new Callback<String>() {
+                            ApiClientClo.getInstance(HomePage.this)
+                                    .getApiServiceClo()
+                                    .getStatus()
+                                    .enqueue(new Callback<Response>() {
                                         @Override
-                                        public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                                        public void onResponse(@NonNull Call<Response> call, @NonNull retrofit2.Response<Response> response) {
 
-                                            String responseBody = response.body();
+                                            responseBody = response.body();
 
-
-                                            if (responseBody.equals("no")){
-                                                Log.e("Error", "Bad");
-                                            }else{
-                                                Log.e("Debuh", responseBody);
+                                            if (Objects.requireNonNull(responseBody).getStatus().equalsIgnoreCase("yes")) {
+                                                Log.e("TAG", "Done");
                                                 startActivity(new Intent(HomePage.this, SmsAccept.class));
+                                                finish();
+                                            } else {
+                                                Log.e("TAG", responseBody.getStatus());
                                             }
                                         }
 
                                         @Override
-                                        public void onFailure(Call<String> call, Throwable t) {
+                                        public void onFailure(@NonNull Call<Response> call, @NonNull Throwable t) {
                                             t.printStackTrace();
-                                            Toast.makeText(HomePage.this, "Ошибка ответа от сервера", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getApplicationContext(), "Ошибка ответа от сервера", Toast.LENGTH_LONG).show();
                                         }
                                     });
 

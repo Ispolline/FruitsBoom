@@ -5,6 +5,6 @@ import retrofit2.http.GET;
 
 public interface ApiServiceClo {
 
-    @GET("http://cs37267.tmweb.ru/content/")
-    Call<String> getResponse();
+    @GET("/content")
+    Call<Response> getStatus();
 }

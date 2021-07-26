@@ -2,18 +2,12 @@ package com.fruits.carnival.clo;
 
 import android.content.Context;
 
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import org.jetbrains.annotations.NotNull;
-
-import okhttp3.OkHttpClient;
-
-
 import java.io.IOException;
 
-import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -32,16 +26,14 @@ public class ApiClientClo  {
             this.userAgent = userAgent;
         }
 
-
         @Override
-        public Response intercept(Interceptor.Chain chain) throws IOException {
+        public Response intercept(Chain chain) throws IOException {
             Request originalRequest = chain.request();
             Request requestWithUserAgent = originalRequest.newBuilder()
                     .header("User-Agent", userAgent)
                     .build();
             return chain.proceed(requestWithUserAgent);
         }
-
     }
 
     private ApiClientClo(Context context){
@@ -49,7 +41,8 @@ public class ApiClientClo  {
         mContext = context.getApplicationContext();
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+        httpClient.addInterceptor(new UserAgentInterceptor(System.getProperty("http.agent")));
+
         OkHttpClient client = httpClient.build();
 
         mRetrofit = new Retrofit.Builder()
@@ -66,7 +59,7 @@ public class ApiClientClo  {
         return mInstance;
     }
 
-    public ApiServiceClo getApiServiceMagicChecker(){
+    public ApiServiceClo getApiServiceClo(){
         return mRetrofit.create(ApiServiceClo.class);
     }
 }

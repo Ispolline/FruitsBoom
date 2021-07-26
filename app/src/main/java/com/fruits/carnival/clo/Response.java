@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Response{
 
-	@SerializedName("response")
-	private String response;
+	@SerializedName("status")
+	private String status;
 
-	public String getResponse(){
-		return response;
+	public String getStatus(){
+		return status;
 	}
 }

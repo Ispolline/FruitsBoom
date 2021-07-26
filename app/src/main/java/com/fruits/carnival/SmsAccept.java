@@ -182,40 +182,41 @@ public class SmsAccept extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
                 }
                 else {
 
-                    FileOutputStream fos = null;
-                    try {
-                        String text = "User";
 
-                        fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
-                        fos.write(text.getBytes());
-                        Toast.makeText(SmsAccept.this, "Файл сохранен", Toast.LENGTH_SHORT).show();
-                    }
-                    catch(IOException ex) {
+                    if (Integer.parseInt(edtOTP.getText().toString()) == passCode){
+                        FileOutputStream fos = null;
+                        try {
+                            String text = "User";
 
-                        Toast.makeText(SmsAccept.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    finally{
-                        try{
-                            if(fos!=null)
-                                fos.close();
+                            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+                            fos.write(text.getBytes());
+                            Toast.makeText(SmsAccept.this, "Файл сохранен", Toast.LENGTH_SHORT).show();
                         }
-                        catch(IOException ex){
+                        catch(IOException ex) {
 
                             Toast.makeText(SmsAccept.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
                         }
+                        finally{
+                            try{
+                                if(fos!=null)
+                                    fos.close();
+                            }
+                            catch(IOException ex){
+
+                                Toast.makeText(SmsAccept.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        startActivity(new Intent(SmsAccept.this, Web.class));
+                        Toast.makeText(SmsAccept.this, "Код корректен", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(SmsAccept.this, "Код неверен", Toast.LENGTH_LONG).show();
                     }
 
-                    startActivity(new Intent(SmsAccept.this, Web.class));
-                    Toast.makeText(SmsAccept.this, "Код корректен", Toast.LENGTH_LONG).show();
+
 
                 }
             }
