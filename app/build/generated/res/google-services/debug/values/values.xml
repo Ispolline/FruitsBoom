@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">899042197640-e8qisbb5g4q78dacji6lrcgroe739mls.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">899042197640</string>
+    <string name="google_api_key" translatable="false">AIzaSyAHtuByyvkGPG1wZWiCnI2RA0pC3MK-hzE</string>
+    <string name="google_app_id" translatable="false">1:899042197640:android:04628c59fe56d71b0fdf3d</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAHtuByyvkGPG1wZWiCnI2RA0pC3MK-hzE</string>
+    <string name="google_storage_bucket" translatable="false">puzzle-groupe.appspot.com</string>
+    <string name="project_id" translatable="false">puzzle-groupe</string>
+</resources>

@@ -36,7 +36,7 @@ public class SmsAccept extends AppCompatActivity {
     EditText edtPhone, edtOTP;
     Button verifyOTPBtn, generateOTPBtn;
     String verificationId;
-    String[] data = {"Казахстан (+7)", "Российская Федерация (+7)", "Украина (+380)"};
+    String[] data = {"Российская Федерация (+7)", "Казахстан (+7)", "Украина (+380)"};
 
 
     //new
@@ -55,8 +55,10 @@ public class SmsAccept extends AppCompatActivity {
     final String SAVED_STATUS = "Status_user";
 
 
-    String code = "7";
+    String code;
 
+
+    int code_n = 0;
 
 
 
@@ -94,6 +96,28 @@ public class SmsAccept extends AppCompatActivity {
 
 
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                // показываем позиция нажатого элемента
+//                Toast.makeText(getBaseContext(), "Position = " + position, Toast.LENGTH_SHORT).show();
+
+                if (position == 0){
+                    codeCountry = "7";
+                }else if (position == 1){
+                    codeCountry = "7";
+                }else if (position == 2){
+                    codeCountry = "380";
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+
+
 
         //neew
 
@@ -120,28 +144,9 @@ public class SmsAccept extends AppCompatActivity {
 
 
 
-                                                      spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                                          @Override
-                                                          public void onItemSelected(AdapterView<?> parent, View view,
-                                                                                     int position, long id) {
-                                                              // показываем позиция нажатого элемента
-//                Toast.makeText(getBaseContext(), "Position = " + position, Toast.LENGTH_SHORT).show();
-
-                                                              if (position == 0){
-                                                                  String code = "7";
-                                                              }else if (position == 1){
-                                                                  String code = "7";
-                                                              }else if (position == 2){
-                                                                  String code = "380";
-                                                              }
-                                                          }
-                                                          @Override
-                                                          public void onNothingSelected(AdapterView<?> arg0) {
-                                                          }
-                                                      });
 
 
-                                                      String final_number = (code + phone);
+                                                      String final_number = (codeCountry + phone);
 
 
 
@@ -228,5 +233,10 @@ public class SmsAccept extends AppCompatActivity {
     private int generateCode() {
         return (int) (Math.random() * 10000) + 1000;
     }
+
+    @Override public void onBackPressed() {
+        Log.e("BACK", "NO");
+    }
+
 
 }

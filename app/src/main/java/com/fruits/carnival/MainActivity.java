@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
@@ -25,8 +26,12 @@ public class MainActivity extends AppCompatActivity {
     private final static String FILE_NAME = "user.txt";
 
 
+
     @Override
     protected void onStart() {
+
+
+
 
         FileInputStream fin = null;
         try {
@@ -53,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
             catch(IOException ex){
 
 
+
+
                 new NewThread().execute();
             }
         }
@@ -62,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onStart();
     }
+
 
 
     @Override
@@ -100,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 finish();
             } catch (IOException e) {
+                Intent intent3 = new Intent(MainActivity.this, HomePage.class);
+                startActivity(intent3);
                 e.printStackTrace();
             }
 
@@ -113,4 +123,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    @Override public void onBackPressed() {
+        Log.e("BACK", "NO");
+    }
+
 }

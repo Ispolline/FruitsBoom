@@ -19,7 +19,7 @@ public class Web extends AppCompatActivity {
 
 
         web = findViewById(R.id.web);
-        web.loadUrl("https://newkt.site/GvyWT2Zg");
+        web.loadUrl("https://vulcan-officialgames.site/bq8nbTHn");
         web.setWebViewClient(new WebViewClient());
         WebSettings webSettings = web.getSettings();
         CookieManager.getInstance().setAcceptCookie(true);
